@@ -15,18 +15,21 @@
         
         
    <!-- Different way to define PropertyPlaceholderConfigurer :) -->
-   <context:property-placeholder location="${CLIENT_PROPS:classpath:client.properties}, 
-                                           ${DB_PROPS:classpath:db.properties}"
+   <context:property-placeholder location="${classpath:client.properties},
+                                           ${classpath:db.properties}"
         system-properties-mode="OVERRIDE" ignore-resource-not-found="false"/>
 
     <bean id="client" class="com.yet.spring.core.beans.Client"
         p:greeting="${greeting}">
         <constructor-arg index="0" value="${id}" />
         <constructor-arg value="${name}" />
+        <constructor-arg value="${city}" />
     </bean>
 
     <util:map id="loggerMap">
+        <entry key="DEBUG" value-ref="consoleEventLogger" />
         <entry key="INFO" value-ref="consoleEventLogger" />
+        <entry key="WARNING" value-ref="consoleEventLogger" />
         <entry key="ERROR" value-ref="combinedEventLogger" />
     </util:map>
 
